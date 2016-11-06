@@ -8,5 +8,14 @@
     "type": "git"
   },
   "author": "Luca Nils Schmid",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mobx": "^2.6.1",
+    "mobx-react": "^3.5.8",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "rollup": "^0.36.3"
+  }
 }
