@@ -10,6 +10,7 @@
   "author": "Luca Nils Schmid",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.14.0",
     "mobx": "^2.6.1",
     "mobx-react": "^3.5.8",
     "react": "^15.3.2",
