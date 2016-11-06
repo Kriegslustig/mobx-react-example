@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "Send yourself a message over Slack! (An example app using MobX and React)",
   "main": "index.js",
+  "scripts": {
+    "build": "rollup -c .rollup.js",
+    "flow-typed": "flow-typed",
+    "flow": "flow"
+  },
   "repository": {
     "url": "https://github.com/kriegslustig/mobx-react-example.git",
     "type": "git"
@@ -14,9 +19,20 @@
     "mobx": "^2.6.1",
     "mobx-react": "^3.5.8",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-hyperscript-helpers": "^1.2.0"
   },
   "devDependencies": {
-    "rollup": "^0.36.3"
+    "babel": "^6.5.2",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "flow-bin": "^0.34.0",
+    "flow-typed": "^2.0.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-watch": "^2.5.0"
   }
 }
