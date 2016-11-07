@@ -18938,7 +18938,7 @@ exports.isArrayLike = isArrayLike;
 
 
 
-
+var asReference = mobx$1.asReference;
 
 
 
@@ -18953,6 +18953,21 @@ exports.isArrayLike = isArrayLike;
 
 
 var observable = mobx$1.observable;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var action = mobx$1.action;
 
 var index$5 = createCommonjsModule(function (module, exports) {
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -19957,32 +19972,297 @@ return /******/ (function(modules) { // webpackBootstrap
 
 var observer = index$5.observer;
 
-var updateField = function updateField(field) {
-  return function (e) {
-    return field.value = e.target.value;
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
   };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var get$2 = function get$2(object, property, receiver) {
+  if (object === null) object = Function.prototype;
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent === null) {
+      return undefined;
+    } else {
+      return get$2(parent, property, receiver);
+    }
+  } else if ("value" in desc) {
+    return desc.value;
+  } else {
+    var getter = desc.get;
+
+    if (getter === undefined) {
+      return undefined;
+    }
+
+    return getter.call(receiver);
+  }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var set$1 = function set$1(object, property, value, receiver) {
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent !== null) {
+      set$1(parent, property, value, receiver);
+    }
+  } else if ("value" in desc && desc.writable) {
+    desc.value = value;
+  } else {
+    var setter = desc.set;
+
+    if (setter !== undefined) {
+      setter.call(receiver, value);
+    }
+  }
+
+  return value;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
+var styles = {
+  field: {
+    normal: {},
+    failure: {}
+  },
+  error: {}
+};
+
+styles.field.failure = Object.assign(styles.field.normal, {
+  borderColor: 'red'
+});
+
+var Field = observer(function (_ref) {
+  var label = _ref.label,
+      state = _ref.state;
+
+  var inputStyle = state.errors.length > 0 ? styles.field.failure : styles.field.normal;
+
+  var errors = state.errors.map(function (err) {
+    return H.p(err, { style: styles.error });
+  });
+
+  var onChange = function onChange(e) {
+    return state.update(e.target.value);
+  };
+
+  return H.fieldset([H.label(label), H.input({
+    type: 'text',
+    value: state.value,
+    styles: inputStyle,
+    onChange: onChange
+  })].concat(toConsumableArray(errors)));
+});
+
+// Internal helpers
 
 var Form = observer(function (_ref) {
   var organization = _ref.organization;
-  return H.form([H.input({ onChange: updateField(organization) }), H.p('v: ' + organization.value)]);
+  return H.form([H.h(Field, { label: 'Organization', state: organization })]);
 });
 
 var Application = observer(function (_ref) {
-  var form = _ref.form;
-  return h(Form, form);
+  var ui = _ref.stores.ui;
+  return h(Form, ui.form);
 });
 
-var store = observable({
+var lang = 'en';
+var strings = {
+  'errors.no-empty-strings': { en: 'Field may not be empty' }
+};
+
+var t = (function (key) {
+  return strings[key][lang];
+});
+
+var uiStore = observable({
   form: {
     organization: {
       value: '',
-      errors: []
+      errors: [],
+      validate: asReference(function (value) {
+        // Orgname has to be longer than 0
+        if (value.length === 0) return [t('errors.no-empty-strings')];
+      }),
+      update: action(function (value) {
+        var _field$errors;
+
+        var field = uiStore.form.organization;
+        var errors = field.validate(value) || [];
+        field.value = value;
+        if (errors) (_field$errors = field.errors).push.apply(_field$errors, toConsumableArray(errors));
+      })
     }
   }
 });
 
-index$1.render(H.h(Application, store), document.getElementById('container'));
+index$1.render(H.h(Application, { stores: { ui: uiStore } }), document.getElementById('container'));
 
 })));
 //# sourceMappingURL=build.js.map
