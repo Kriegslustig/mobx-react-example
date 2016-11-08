@@ -4,6 +4,6 @@ import { observer } from 'mobx-react'
 import Form from '../organisms/form'
 
 export default observer(({ stores: { ui } }) =>
-  h(Form, ui.form)
+  h(Form, ui)
 )
 

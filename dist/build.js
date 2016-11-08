@@ -15,13 +15,6 @@
  * @providesModule reactProdInvariant
  * 
  */
-/**
- * WARNING: DO NOT manually require this module.
- * This is a replacement for `invariant(...)` used by the error code system
- * and will _only_ be required by the corresponding babel pass.
- * It always throws.
- */
-
 function reactProdInvariant(code) {
   var argCount = arguments.length - 1;
 
@@ -50,17 +43,6 @@ var reactProdInvariant_1 = reactProdInvariant;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- */
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
  */
 
 function invariant$2(condition, format, a, b, c, d, e, f) {
@@ -583,9 +565,6 @@ var EventConstants_1 = EventConstants$1;
 
 var _prodInvariant$3 = reactProdInvariant_1;
 
-/**
- * Injectable ordering of event plugins.
- */
 var EventPluginOrder = null;
 
 /**
@@ -856,17 +835,6 @@ var ReactErrorUtils$2 = {
 
 var ReactErrorUtils_1 = ReactErrorUtils$2;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
 function makeEmptyFunction(arg) {
   return function () {
     return arg;
@@ -898,14 +866,6 @@ var _prodInvariant$4 = reactProdInvariant_1;
 var EventConstants$3 = EventConstants_1;
 var ReactErrorUtils$1 = ReactErrorUtils_1;
 
-/**
- * Injected dependencies:
- */
-
-/**
- * - `ComponentTree`: [required] Module that can convert between React instances
- *   and actual node references.
- */
 var ComponentTree;
 var TreeTraversal;
 var injection = {
@@ -932,13 +892,6 @@ function isStartish(topLevelType) {
   return topLevelType === topLevelTypes$2.topMouseDown || topLevelType === topLevelTypes$2.topTouchStart;
 }
 
-/**
- * Dispatch the event to the listener.
- * @param {SyntheticEvent} event SyntheticEvent to handle
- * @param {boolean} simulated If the event is simulated (changes exn behavior)
- * @param {function} listener Application-level callback
- * @param {*} inst Internal component instance
- */
 function executeDispatch(event, simulated, listener, inst) {
   var type = event.type || 'unknown-event';
   event.currentTarget = EventPluginUtils$2.getNodeFromInstance(inst);
@@ -1080,19 +1033,6 @@ var EventPluginUtils_1 = EventPluginUtils$2;
 
 var _prodInvariant$5 = reactProdInvariant_1;
 
-/**
- * Accumulates items that must not be null or undefined into the first one. This
- * is used to conserve memory by avoiding array allocations, and thus sacrifices
- * API cleanness. Since `current` can be null before being passed in and not
- * null after this function, make sure to assign it back to `current`:
- *
- * `a = accumulateInto(a, b);`
- *
- * This API should be sparingly used. Try `accumulate` for something cleaner.
- *
- * @return {*|array<*>} An accumulation of items.
- */
-
 function accumulateInto$2(current, next) {
   !(next != null) ? _prodInvariant$5('30') : void 0;
 
@@ -1133,14 +1073,6 @@ var accumulateInto_1 = accumulateInto$2;
  * 
  */
 
-/**
- * @param {array} arr an "accumulation" of items which is either an Array or
- * a single item. Useful when paired with the `accumulate` module. This is a
- * simple utility that allows us to reason about a collection of items, but
- * handling the case when there is exactly one item (and we do not need to
- * allocate an array).
- */
-
 function forEachAccumulated$2(arr, cb, scope) {
   if (Array.isArray(arr)) {
     arr.forEach(cb, scope);
@@ -1159,9 +1091,6 @@ var ReactErrorUtils = ReactErrorUtils_1;
 
 var accumulateInto$1 = accumulateInto_1;
 var forEachAccumulated$1 = forEachAccumulated_1;
-/**
- * Internal store for event listeners
- */
 var listenerBank = {};
 
 /**
@@ -1542,7 +1471,6 @@ var ExecutionEnvironment$1 = {
 
 var ExecutionEnvironment_1 = ExecutionEnvironment$1;
 
-/* eslint-disable no-unused-vars */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -1627,13 +1555,6 @@ var index$2 = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _prodInvariant$6 = reactProdInvariant_1;
 
-/**
- * Static poolers. Several custom versions for each potential number of
- * arguments. A completely generic pooler is easy to implement, but would
- * require accessing the `arguments` object. In each of these, `this` refers to
- * the Class itself, not an instance. If any others are needed, simply add them
- * here, or in their own files.
- */
 var oneArgumentPooler = function (copyFieldsFrom) {
   var Klass = this;
   if (Klass.instancePool.length) {
@@ -1987,12 +1908,6 @@ _assign$1(SyntheticEvent$1.prototype, {
 
 SyntheticEvent$1.Interface = EventInterface;
 
-/**
- * Helper to reduce boilerplate when creating subclasses.
- *
- * @param {function} Class
- * @param {?object} Interface
- */
 SyntheticEvent$1.augmentClass = function (Class, Interface) {
   var Super = this;
 
@@ -2013,6 +1928,14 @@ SyntheticEvent$1.augmentClass = function (Class, Interface) {
 PooledClass$2.addPoolingTo(SyntheticEvent$1, PooledClass$2.fourArgumentPooler);
 
 var SyntheticEvent_1 = SyntheticEvent$1;
+
+/**
+  * Helper to nullify syntheticEvent instance properties when destructing
+  *
+  * @param {object} SyntheticEvent
+  * @param {String} propName
+  * @return {object} defineProperty object
+  */
 
 var SyntheticEvent = SyntheticEvent_1;
 
@@ -2063,26 +1986,6 @@ SyntheticEvent$2.augmentClass(SyntheticInputEvent$1, InputEventInterface);
 
 var SyntheticInputEvent_1 = SyntheticInputEvent$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-/**
- * Allows extraction of a minified key. Let's the build system minify keys
- * without losing the ability to dynamically use key strings as values
- * themselves. Pass in an object with a single key/val pair and it will return
- * you the string key of that single record. Suppose you want to grab the
- * value for a key 'className' inside of an object. Key/val minification may
- * have aliased that key to be 'xa12'. keyOf({className: null}) will return
- * 'xa12' in that case. Resolve keys you want to use once at startup time, then
- * reuse those resolutions.
- */
 var keyOf$1 = function keyOf$1(oneKeyObj) {
   var key;
   for (key in oneKeyObj) {
@@ -2479,17 +2382,6 @@ var _assign$3 = index$2;
 
 var PooledClass$4 = PooledClass_1;
 
-/**
- * A specialized pseudo-event module to help keep track of components waiting to
- * be notified when their DOM representations are available for use.
- *
- * This implements `PooledClass`, so you should never need to instantiate this.
- * Instead, use `CallbackQueue.getPooled()`.
- *
- * @class ReactMountReady
- * @implements PooledClass
- * @internal
- */
 function CallbackQueue$1() {
   this._callbacks = null;
   this._contexts = null;
@@ -2589,36 +2481,6 @@ var ReactFeatureFlags_1 = ReactFeatureFlags$1;
 
 var _prodInvariant$9 = reactProdInvariant_1;
 
-/**
- * ReactOwners are capable of storing references to owned components.
- *
- * All components are capable of //being// referenced by owner components, but
- * only ReactOwner components are capable of //referencing// owned components.
- * The named reference is known as a "ref".
- *
- * Refs are available when mounted and updated during reconciliation.
- *
- *   var MyComponent = React.createClass({
- *     render: function() {
- *       return (
- *         <div onClick={this.handleClick}>
- *           <CustomComponent ref="custom" />
- *         </div>
- *       );
- *     },
- *     handleClick: function() {
- *       this.refs.custom.handleClick();
- *     },
- *     componentDidMount: function() {
- *       this.refs.custom.initialize();
- *     }
- *   });
- *
- * Refs should rarely be used. When refs are used, they should only be done to
- * control data that is not handled by React's data flow.
- *
- * @class ReactOwner
- */
 var ReactOwner$1 = {
 
   /**
@@ -2794,13 +2656,6 @@ var ReactHostOperationHistoryHook_1 = ReactHostOperationHistoryHook$1;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule ReactCurrentOwner
- */
-
-/**
- * Keeps track of the current owner.
- *
- * The current owner is the component who should own any components that are
- * currently being constructed.
  */
 
 var ReactCurrentOwner$1 = {
@@ -3192,17 +3047,6 @@ if (ExecutionEnvironment$5.canUseDOM) {
 
 var performance_1 = performance$1 || {};
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
 var performance = performance_1;
 
 var performanceNow$1;
@@ -3514,10 +3358,6 @@ var debugTool = null;
 var ReactInstrumentation$1 = { debugTool: debugTool };
 
 var ReactRef = ReactRef_1;
-/**
- * Helper to call ReactRef.attachRefs with this composite component, split out
- * to avoid allocations in the transaction mount-ready queue.
- */
 function attachRefs() {
   ReactRef.attachRefs(this, this._currentElement);
 }
@@ -3629,67 +3469,6 @@ var ReactReconciler_1 = ReactReconciler$2;
 
 var _prodInvariant$11 = reactProdInvariant_1;
 
-/**
- * `Transaction` creates a black box that is able to wrap any method such that
- * certain invariants are maintained before and after the method is invoked
- * (Even if an exception is thrown while invoking the wrapped method). Whoever
- * instantiates a transaction can provide enforcers of the invariants at
- * creation time. The `Transaction` class itself will supply one additional
- * automatic invariant for you - the invariant that any transaction instance
- * should not be run while it is already being run. You would typically create a
- * single instance of a `Transaction` for reuse multiple times, that potentially
- * is used to wrap several different methods. Wrappers are extremely simple -
- * they only require implementing two methods.
- *
- * <pre>
- *                       wrappers (injected at creation time)
- *                                      +        +
- *                                      |        |
- *                    +-----------------|--------|--------------+
- *                    |                 v        |              |
- *                    |      +---------------+   |              |
- *                    |   +--|    wrapper1   |---|----+         |
- *                    |   |  +---------------+   v    |         |
- *                    |   |          +-------------+  |         |
- *                    |   |     +----|   wrapper2  |--------+   |
- *                    |   |     |    +-------------+  |     |   |
- *                    |   |     |                     |     |   |
- *                    |   v     v                     v     v   | wrapper
- *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
- * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
- * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | +---+ +---+   +---------+   +---+ +---+ |
- *                    |  initialize                    close    |
- *                    +-----------------------------------------+
- * </pre>
- *
- * Use cases:
- * - Preserving the input selection ranges before/after reconciliation.
- *   Restoring selection even in the event of an unexpected error.
- * - Deactivating events while rearranging the DOM, preventing blurs/focuses,
- *   while guaranteeing that afterwards, the event system is reactivated.
- * - Flushing a queue of collected DOM mutations to the main UI thread after a
- *   reconciliation takes place in a worker thread.
- * - Invoking any collected `componentDidUpdate` callbacks after rendering new
- *   content.
- * - (Future use case): Wrapping particular flushes of the `ReactWorker` queue
- *   to preserve the `scrollTop` (an automatic scroll aware DOM).
- * - (Future use case): Layout calculations before and after DOM updates.
- *
- * Transactional plugin API:
- * - A module that has an `initialize` method that returns any precomputation.
- * - and a `close` method that accepts the precomputation. `close` is invoked
- *   when the wrapped process is completed, or has failed.
- *
- * @param {Array<TransactionalWrapper>} transactionWrapper Wrapper modules
- * that implement `initialize` and `close`.
- * @return {Transaction} Single transaction for reuse in thread.
- *
- * @class Transaction
- */
 var Mixin = {
   /**
    * Sets up this instance so that it is prepared for collecting metrics. Does
@@ -4094,14 +3873,6 @@ var ReactUpdates_1 = ReactUpdates$2;
  * @providesModule getEventTarget
  */
 
-/**
- * Gets the target node from a native browser event by accounting for
- * inconsistencies in browser DOM APIs.
- *
- * @param {object} nativeEvent Native browser event.
- * @return {DOMEventTarget} Target node.
- */
-
 function getEventTarget$1(nativeEvent) {
   var target = nativeEvent.target || nativeEvent.srcElement || window;
 
@@ -4175,10 +3946,6 @@ var isEventSupported_1 = isEventSupported$1;
  *
  * @providesModule isTextInputElement
  * 
- */
-
-/**
- * @see http://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
  */
 
 var supportedInputTypes = {
@@ -4627,11 +4394,6 @@ var ViewportMetrics_1 = ViewportMetrics$1;
  * @providesModule getEventModifierState
  */
 
-/**
- * Translation from modifier key to the associated property in the event.
- * @see http://www.w3.org/TR/DOM-Level-3-Events/#keys-Modifiers
- */
-
 var modifierKeyToProp = {
   'Alt': 'altKey',
   'Control': 'ctrlKey',
@@ -5043,10 +4805,6 @@ var DOMNamespaces_1 = DOMNamespaces$1;
 
 /* globals MSApp */
 
-/**
- * Create a function which has 'unsafe' privileges (required by windows8 apps)
- */
-
 var createMicrosoftUnsafeLocalFunction$3 = function (func) {
   if (typeof MSApp !== 'undefined' && MSApp.execUnsafeLocalFunction) {
     return function (arg0, arg1, arg2, arg3) {
@@ -5181,12 +4939,6 @@ var setInnerHTML_1 = setInnerHTML$2;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  * @providesModule escapeTextContentForBrowser
- */
-
-// code copied and modified from escape-html
-/**
- * Module variables.
- * @private
  */
 
 var matchHtmlRegExp = /["'&<>]/;
@@ -5411,17 +5163,6 @@ DOMLazyTree$1.queueText = queueText;
 
 var DOMLazyTree_1 = DOMLazyTree$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
 var invariant$16 = invariant_1;
 
 /**
@@ -5536,18 +5277,6 @@ function createArrayFromMixed$1(obj) {
 
 var createArrayFromMixed_1 = createArrayFromMixed$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-/*eslint-disable fb-www/unsafe-html */
-
 var ExecutionEnvironment$11 = ExecutionEnvironment_1;
 
 var invariant$17 = invariant_1;
@@ -5628,19 +5357,6 @@ function getMarkupWrap$1(nodeName) {
 }
 
 var getMarkupWrap_1 = getMarkupWrap$1;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
-/*eslint-disable fb-www/unsafe-html*/
 
 var ExecutionEnvironment$10 = ExecutionEnvironment_1;
 
@@ -5866,9 +5582,6 @@ function replaceDelimitedText(openingComment, closingComment, stringText) {
 }
 
 var dangerouslyReplaceNodeWithMarkup = Danger.dangerouslyReplaceNodeWithMarkup;
-/**
- * Operations for updating with DOM children.
- */
 var DOMChildrenOperations$1 = {
 
   dangerouslyReplaceNodeWithMarkup: dangerouslyReplaceNodeWithMarkup,
@@ -5964,10 +5677,6 @@ var ReactComponentBrowserEnvironment_1 = ReactComponentBrowserEnvironment$1;
  *
  */
 
-/**
- * @param {DOMElement} node input/textarea to focus
- */
-
 function focusNode$1(node) {
   // IE8 can throw "Can't move focus to the control because it is invisible,
   // not enabled, or of a type that does not accept the focus." for all kinds of
@@ -6000,10 +5709,6 @@ var AutoFocusUtils_1 = AutoFocusUtils$1;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule CSSProperty
- */
-
-/**
- * CSS properties which accept numbers but are not in units of "px".
  */
 
 var isUnitlessNumber = {
@@ -6138,17 +5843,6 @@ var CSSProperty$1 = {
 
 var CSSProperty_1 = CSSProperty$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
 var _hyphenPattern = /-(.)/g;
 
 /**
@@ -6172,18 +5866,26 @@ var camelize = camelize_1;
 
 var msPattern = /^-ms-/;
 
+/**
+ * Camelcases a hyphenated CSS property name, for example:
+ *
+ *   > camelizeStyleName('background-color')
+ *   < "backgroundColor"
+ *   > camelizeStyleName('-moz-transition')
+ *   < "MozTransition"
+ *   > camelizeStyleName('-ms-transition')
+ *   < "msTransition"
+ *
+ * As Andi Smith suggests
+ * (http://www.andismith.com/blog/2012/02/modernizr-prefixed/), an `-ms` prefix
+ * is converted to lowercase `ms`.
+ *
+ * @param {string} string
+ * @return {string}
+ */
+
 var CSSProperty$2 = CSSProperty_1;
 var isUnitlessNumber$1 = CSSProperty$2.isUnitlessNumber;
-/**
- * Convert a value into the proper css writable value. The style name `name`
- * should be logical (no hyphens), as specified
- * in `CSSProperty.isUnitlessNumber`.
- *
- * @param {string} name CSS property name such as `topMargin`.
- * @param {*} value CSS property value such as `10px`.
- * @param {ReactDOMComponent} component
- * @return {string} Normalized style value with dimensions applied.
- */
 function dangerousStyleValue$1(name, value, component) {
   // Note that we've removed escapeTextForBrowser() calls here since the
   // whole string will be escaped when the attribute is injected into
@@ -6212,17 +5914,6 @@ function dangerousStyleValue$1(name, value, component) {
 }
 
 var dangerousStyleValue_1 = dangerousStyleValue$1;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
 
 var _uppercasePattern = /([A-Z])/g;
 
@@ -6282,10 +5973,6 @@ var hyphenateStyleName_1 = hyphenateStyleName$1;
  * @typechecks static-only
  */
 
-/**
- * Memoizes the return value of a function that accepts one string argument.
- */
-
 function memoizeStringOnly$1(callback) {
   var cache = {};
   return function (string) {
@@ -6323,9 +6010,6 @@ if (ExecutionEnvironment$12.canUseDOM) {
   }
 }
 
-/**
- * Operations for dealing with CSS properties.
- */
 var CSSPropertyOperations$1 = {
 
   /**
@@ -7129,26 +6813,6 @@ function hasValidKey(config) {
   return config.key !== undefined;
 }
 
-/**
- * Factory method to create a new React element. This no longer adheres to
- * the class pattern, so do not use new to call it. Also, no instanceof check
- * will work. Instead test $$typeof field against Symbol.for('react.element') to check
- * if something is a React Element.
- *
- * @param {*} type
- * @param {*} key
- * @param {string|object} ref
- * @param {*} self A *temporary* helper to detect places where `this` is
- * different from the `owner` when React.createElement is called, so that we
- * can warn. We want to get rid of owner and replace string `ref`s with arrow
- * functions, and as long as `this` and owner are the same, there will be no
- * change in behavior.
- * @param {*} source An annotation object (added by a transpiler or otherwise)
- * indicating filename, line number, and/or other information.
- * @param {*} owner
- * @param {*} props
- * @internal
- */
 var ReactElement$1 = function (type, key, ref, self, source, owner, props) {
   var element = {
     // This tag allow us to uniquely identify this as a React Element
@@ -7369,8 +7033,6 @@ var ReactPropTypesSecret_1 = ReactPropTypesSecret$2;
  * 
  */
 
-/* global Symbol */
-
 var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
 
@@ -7403,53 +7065,6 @@ var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
 
 var emptyFunction$5 = emptyFunction_1;
 var getIteratorFn = getIteratorFn_1;
-/**
- * Collection of methods that allow declaration and validation of props that are
- * supplied to React components. Example usage:
- *
- *   var Props = require('ReactPropTypes');
- *   var MyArticle = React.createClass({
- *     propTypes: {
- *       // An optional string prop named "description".
- *       description: Props.string,
- *
- *       // A required enum prop named "category".
- *       category: Props.oneOf(['News','Photos']).isRequired,
- *
- *       // A prop named "dialog" that requires an instance of Dialog.
- *       dialog: Props.instanceOf(Dialog).isRequired
- *     },
- *     render: function() { ... }
- *   });
- *
- * A more formal specification of how these methods are used:
- *
- *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
- *   decl := ReactPropTypes.{type}(.isRequired)?
- *
- * Each and every declaration produces a function with the same signature. This
- * allows the creation of custom validation functions. For example:
- *
- *  var MyLink = React.createClass({
- *    propTypes: {
- *      // An optional string or URI prop named "href".
- *      href: function(props, propName, componentName) {
- *        var propValue = props[propName];
- *        if (propValue != null && typeof propValue !== 'string' &&
- *            !(propValue instanceof URI)) {
- *          return new Error(
- *            'Expected a string or an URI for ' + propName + ' in ' +
- *            componentName
- *          );
- *        }
- *      }
- *    },
- *    render: function() {...}
- *  });
- *
- * @internal
- */
-
 var ANONYMOUS = '<<anonymous>>';
 
 var ReactPropTypes$1 = {
@@ -7949,22 +7564,6 @@ function forceUpdateIfMounted() {
   }
 }
 
-/**
- * Implements an <input> host component that allows setting these optional
- * props: `checked`, `value`, `defaultChecked`, and `defaultValue`.
- *
- * If `checked` or `value` are not supplied (or null/undefined), user actions
- * that affect the checked state or value will trigger updates to the element.
- *
- * If they are supplied (and not null/undefined), the rendered element will not
- * trigger updates to the element. Instead, the props must change in order for
- * the rendered element to be updated.
- *
- * The rendered element will be initialized as unchecked (or `defaultChecked`)
- * with an empty value (or `defaultValue`).
- *
- * @see http://www.w3.org/TR/2012/WD-html5-20121025/the-input-element.html
- */
 var ReactDOMInput$1 = {
   getHostProps: function (inst, props) {
     var value = LinkedValueUtils.getValue(props);
@@ -8147,13 +7746,6 @@ var ReactDOMInput_1 = ReactDOMInput$1;
  * 
  */
 
-/**
- * Escape and wrap key so it is safe to use as a reactid
- *
- * @param {string} key to be escaped.
- * @return {string} the escaped key.
- */
-
 function escape(key) {
   var escapeRegex = /[=:]/g;
   var escaperLookup = {
@@ -8203,12 +7795,10 @@ var SEPARATOR = '.';
 var SUBSEPARATOR = ':';
 
 /**
- * Generate a key string that identifies a component within a set.
- *
- * @param {*} component A component that could contain a manual key.
- * @param {number} index Index that is used if a manual key is not provided.
- * @return {string}
+ * TODO: Test that a single child and an array with one item have the same key
+ * pattern.
  */
+
 function getComponentKey(component, index) {
   // Do some typechecking here since we call this blindly. We want to ensure
   // that we don't block potential future ES APIs.
@@ -8518,9 +8108,7 @@ function updateOptionsIfPendingUpdateAndMounted() {
 var valuePropNames = ['value', 'defaultValue'];
 
 /**
- * @param {ReactDOMComponent} inst
- * @param {boolean} multiple
- * @param {*} propValue A stringable (with `multiple`, a list of stringables).
+ * Validation function for `value` and `defaultValue`.
  * @private
  */
 function updateOptions(inst, multiple, propValue) {
@@ -8907,15 +8495,6 @@ var ReactComponentEnvironment_1 = ReactComponentEnvironment$1;
  * @providesModule ReactInstanceMap
  */
 
-/**
- * `ReactInstanceMap` maintains a mapping from a public facing stateful
- * instance (key) and the internal representation (value). This allows public
- * methods to accept the user facing instance as an argument and map them back
- * to internal methods.
- */
-
-// TODO: Replace this with ES6: var ReactInstanceMap = new Map();
-
 var ReactInstanceMap$1 = {
 
   /**
@@ -9120,18 +8699,6 @@ var shallowEqual_1 = shallowEqual$2;
  * @providesModule shouldUpdateReactComponent
  */
 
-/**
- * Given a `prevElement` and `nextElement`, determines if the existing
- * instance should be updated as opposed to being destroyed or replaced by a new
- * instance. Both arguments are elements. This ensures that this logic can
- * operate on stateless trees without any backing instance.
- *
- * @param {?object} prevElement
- * @param {?object} nextElement
- * @return {boolean} True if the existing instance should be updated.
- * @protected
- */
-
 function shouldUpdateReactComponent$2(prevElement, nextElement) {
   var prevEmpty = prevElement === null || prevElement === false;
   var nextEmpty = nextElement === null || nextElement === false;
@@ -9192,39 +8759,7 @@ function isPureComponent(Component) {
   return !!(Component.prototype && Component.prototype.isPureReactComponent);
 }
 
-/**
- * ------------------ The Life-Cycle of a Composite Component ------------------
- *
- * - constructor: Initialization of state. The instance is now retained.
- *   - componentWillMount
- *   - render
- *   - [children's constructors]
- *     - [children's componentWillMount and render]
- *     - [children's componentDidMount]
- *     - componentDidMount
- *
- *       Update Phases:
- *       - componentWillReceiveProps (only called if parent updated)
- *       - shouldComponentUpdate
- *         - componentWillUpdate
- *           - render
- *           - [children's constructors or receive props phases]
- *         - componentDidUpdate
- *
- *     - componentWillUnmount
- *     - [children's componentWillUnmount]
- *   - [children destroyed]
- * - (destroyed): The instance is now blank, released by React and ready for GC.
- *
- * -----------------------------------------------------------------------------
- */
-
-/**
- * An incrementing ID assigned to each component when it is mounted. This is
- * used to enforce the order in which `ReactUpdates` updates dirty components.
- *
- * @private
- */
+// Separated into a function to contain deoptimizations caused by try/finally.
 var nextMountID = 1;
 
 /**
@@ -9982,7 +9517,6 @@ var ReactCompositeComponent = ReactCompositeComponent_1;
 var ReactEmptyComponent = ReactEmptyComponent_1;
 var ReactHostComponent = ReactHostComponent_1;
 
-// To avoid a cyclic dependency, we create the final class in this module
 var ReactCompositeComponentWrapper = function (element) {
   this.construct(element);
 };
@@ -10011,14 +9545,6 @@ function isInternalComponentType(type) {
   return typeof type === 'function' && typeof type.prototype !== 'undefined' && typeof type.prototype.mountComponent === 'function' && typeof type.prototype.receiveComponent === 'function';
 }
 
-/**
- * Given a ReactNode, create an instance that will actually be mounted.
- *
- * @param {ReactNode} node
- * @param {boolean} shouldHaveDebugID
- * @return {object} A new instance of the element's constructor.
- * @protected
- */
 function instantiateReactComponent$1(node, shouldHaveDebugID) {
   var instance;
 
@@ -10242,13 +9768,6 @@ var ReactReconciler$3 = ReactReconciler_1;
 var ReactChildReconciler = ReactChildReconciler_1;
 
 var flattenChildren$1 = flattenChildren_1;
-/**
- * Make an update for markup to be rendered and inserted at a supplied index.
- *
- * @param {string} markup Markup that renders into an element.
- * @param {number} toIndex Destination index.
- * @private
- */
 function makeInsertMarkup(markup, afterNode, toIndex) {
   // NOTE: Null values reduce hidden classes.
   return {
@@ -10355,12 +9874,6 @@ function processQueue(inst, updateQueue) {
   ReactComponentEnvironment.processChildrenUpdates(inst, updateQueue);
 }
 
-/**
- * ReactMultiChild are capable of reconciling multiple children.
- *
- * @class ReactMultiChild
- * @internal
- */
 var ReactMultiChild$1 = {
 
   /**
@@ -11072,10 +10585,6 @@ function friendlyStringify(obj) {
 
 var styleMutationWarning = {};
 
-/**
- * @param {object} component
- * @param {?object} props
- */
 function assertValidProps(component, props) {
   if (!props) {
     return;
@@ -11126,8 +10635,6 @@ function optionPostMount() {
   ReactDOMOption.postMountWrapper(inst);
 }
 
-// There are so many media events, it makes sense to just
-// maintain a list rather than create a `trapBubbledEvent` for each
 var mediaEvents = {
   topAbort: 'abort',
   topCanPlay: 'canplay',
@@ -11914,10 +11421,6 @@ var ReactDOMEmptyComponent_1 = ReactDOMEmptyComponent$1;
 
 var _prodInvariant$26 = reactProdInvariant_1;
 
-/**
- * Return the lowest common ancestor of A and B, or null if they are in
- * different trees.
- */
 function getLowestCommonAncestor(instA, instB) {
   !('_hostNode' in instA) ? _prodInvariant$26('33') : void 0;
   !('_hostNode' in instB) ? _prodInvariant$26('33') : void 0;
@@ -12042,21 +11545,6 @@ var DOMLazyTree$5 = DOMLazyTree_1;
 var ReactDOMComponentTree$15 = ReactDOMComponentTree_1;
 
 var escapeTextContentForBrowser$4 = escapeTextContentForBrowser_1;
-/**
- * Text nodes violate a couple assumptions that React makes about components:
- *
- *  - When mounting text into the DOM, adjacent text nodes are merged.
- *  - Text nodes cannot be assigned a React root ID.
- *
- * This component is used to wrap strings between comment nodes so that they
- * can undergo the same reconciliation that is applied to elements.
- *
- * TODO: Investigate representing React components in the DOM with text nodes.
- *
- * @class ReactDOMTextComponent
- * @extends ReactComponent
- * @internal
- */
 var ReactDOMTextComponent$1 = function (text) {
   // TODO: This is really a ReactText (ReactNode), not a ReactElement
   this._currentElement = text;
@@ -12225,24 +11713,6 @@ var ReactDefaultBatchingStrategy$1 = {
 
 var ReactDefaultBatchingStrategy_1 = ReactDefaultBatchingStrategy$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @typechecks
- */
-
 var emptyFunction$10 = emptyFunction_1;
 
 /**
@@ -12313,17 +11783,6 @@ var EventListener_1 = EventListener$1;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @typechecks
- */
-
-/**
- * Gets the scroll position of the supplied element or window.
- *
- * The return values are unbounded, unlike `getScrollPosition`. This means they
- * may be negative or exceed the element boundaries (which is possible using
- * inertial scrolling).
- *
- * @param {DOMWindow|DOMElement} scrollable
- * @return {object} Map with `x` and `y` keys.
  */
 
 function getUnboundedScrollPosition$1(scrollable) {
@@ -12570,9 +12029,6 @@ var _prodInvariant$29 = reactProdInvariant_1;
 var ReactNoopUpdateQueue$1 = ReactNoopUpdateQueue_1;
 
 var emptyObject$3 = emptyObject_1;
-/**
- * Base class helpers for the updating state of a component.
- */
 function ReactComponent$1(props, context, updater) {
   this.props = props;
   this.context = context;
@@ -12974,6 +12430,7 @@ var RESERVED_SPEC_KEYS = {
   },
   autobind: function () {} };
 
+// noop
 function validateMethodOverride(isAlreadyDefined, name) {
   var specPolicy = ReactClassInterface.hasOwnProperty(name) ? ReactClassInterface[name] : null;
 
@@ -13303,13 +12760,6 @@ var ReactInjection_1 = ReactInjection$1;
  * @providesModule getNodeForCharacterOffset
  */
 
-/**
- * Given any node return the first leaf node without children.
- *
- * @param {DOMElement|DOMTextNode} node
- * @return {DOMElement|DOMTextNode}
- */
-
 function getLeafNode(node) {
   while (node && node.firstChild) {
     node = node.firstChild;
@@ -13565,37 +13015,11 @@ var ReactDOMSelection$1 = {
 
 var ReactDOMSelection_1 = ReactDOMSelection$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
-/**
- * @param {*} object The object to check.
- * @return {boolean} Whether or not the object is a DOM node.
- */
 function isNode$2(object) {
   return !!(object && (typeof Node === 'function' ? object instanceof Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
 }
 
 var isNode_1 = isNode$2;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
 
 var isNode$1 = isNode_1;
 
@@ -13608,17 +13032,6 @@ function isTextNode$1(object) {
 }
 
 var isTextNode_1 = isTextNode$1;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
 
 var isTextNode = isTextNode_1;
 
@@ -13647,26 +13060,6 @@ function containsNode$1(outerNode, innerNode) {
 
 var containsNode_1 = containsNode$1;
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @typechecks
- */
-
-/* eslint-disable fb-www/typeof-undefined */
-
-/**
- * Same as document.activeElement but wraps in a try-catch block. In IE it is
- * not safe to call document.activeElement if there is nothing focused.
- *
- * The activeElement will be null only if the document or document body is not
- * yet defined.
- */
 function getActiveElement$1() /*?DOMElement*/{
   if (typeof document === 'undefined') {
     return null;
@@ -13869,20 +13262,6 @@ var ON_DOM_READY_QUEUEING = {
  */
 var TRANSACTION_WRAPPERS$3 = [SELECTION_RESTORATION, EVENT_SUPPRESSION, ON_DOM_READY_QUEUEING];
 
-/**
- * Currently:
- * - The order that these are listed in the transaction is critical:
- * - Suppresses events.
- * - Restores selection range.
- *
- * Future:
- * - Restore document/overflow scroll positions that were unintentionally
- *   modified via DOM insertions above the top viewport boundary.
- * - Implement/integrate with customized constraint based layout system and keep
- *   track of which dimensions must be remeasured.
- *
- * @class ReactReconcileTransaction
- */
 function ReactReconcileTransaction$1(useCreateElement) {
   this.reinitializeTransaction();
   // Only server-side rendering really needs this option (see
@@ -14521,17 +13900,6 @@ var SyntheticFocusEvent_1 = SyntheticFocusEvent$1;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule getEventCharCode
- */
-
-/**
- * `charCode` represents the actual "character code" and is safe to use with
- * `String.fromCharCode`. As such, only keys that correspond to printable
- * characters produce a valid `charCode`, the only exception to this is Enter.
- * The Tab-key is considered non-printable and does not have a `charCode`,
- * presumably because it does not produce a tab-character in browsers.
- *
- * @param {object} nativeEvent Native browser event.
- * @return {number} Normalized `charCode` property.
  */
 
 function getEventCharCode$2(nativeEvent) {
@@ -15809,10 +15177,11 @@ function hasNonRootReactChild(container) {
 }
 
 /**
- * True if the supplied DOM node is a valid node element.
+ * True if the supplied DOM node is a React DOM element and
+ * it has been rendered by another copy of React.
  *
  * @param {?DOMElement} node The candidate DOM node.
- * @return {boolean} True if the DOM is a valid DOM node.
+ * @return {boolean} True if the DOM has been rendered by another copy of React
  * @internal
  */
 function isValidContainer(node) {
@@ -16137,14 +15506,6 @@ var ReactDOMComponentTree$20 = ReactDOMComponentTree_1;
 var ReactInstanceMap$5 = ReactInstanceMap_1;
 
 var getHostComponentFromComposite$1 = getHostComponentFromComposite_1;
-/**
- * Returns the DOM node rendered by this element.
- *
- * See https://facebook.github.io/react/docs/top-level-api.html#reactdom.finddomnode
- *
- * @param {ReactComponent|DOMElement} componentOrElement
- * @return {?DOMElement} The root node of this element.
- */
 function findDOMNode$1(componentOrElement) {
   if (componentOrElement == null) {
     return null;
@@ -16491,12 +15852,6 @@ var ReactElement$9 = ReactElement_1;
  * @private
  */
 var createDOMFactory = ReactElement$9.createFactory;
-/**
- * Creates a mapping from supported HTML tags to `ReactDOMComponent` classes.
- * This is also accessible via `React.DOM`.
- *
- * @public
- */
 var ReactDOMFactories$1 = {
   a: createDOMFactory('a'),
   abbr: createDOMFactory('abbr'),
@@ -16640,20 +15995,6 @@ var _prodInvariant$33 = reactProdInvariant_1;
 
 var ReactElement$11 = ReactElement_1;
 
-/**
- * Returns the first child in a collection of children and verifies that there
- * is only one child in the collection.
- *
- * See https://facebook.github.io/react/docs/top-level-api.html#react.children.only
- *
- * The current implementation of this function assumes that a single child gets
- * passed without a wrapper, but the purpose of this helper function is to
- * abstract away the particular structure of children.
- *
- * @param {?object} children Child collection structure.
- * @return {ReactElement} The first and only `ReactElement` contained in the
- * structure.
- */
 function onlyChild$1(children) {
   !ReactElement$11.isValidElement(children) ? _prodInvariant$33('143') : void 0;
   return children;
@@ -19618,7 +18959,7 @@ var observable = mobx$1.observable;
 
 
 
-
+var computed = mobx$1.computed;
 
 
 
@@ -20879,14 +20220,15 @@ var Field = observer(function (_ref) {
   })].concat(toConsumableArray(errors)));
 });
 
-var Form = observer(function (_ref) {
-  var organization = _ref.organization;
-  return H.form([H.h(Field, { label: 'Organization', state: organization })]);
+// Internal helpers
+
+var Form = observer(function (state) {
+  return H.form([H.h(Field, { label: 'Organization', state: state.form.fields.organization }), H.input({ type: 'submit', disabled: !state.form.isDataValid })]);
 });
 
 var Application = observer(function (_ref) {
   var ui = _ref.stores.ui;
-  return h(Form, ui.form);
+  return h(Form, ui);
 });
 
 var lang = 'en';
@@ -20900,21 +20242,24 @@ var t = (function (key) {
 
 var uiStore = observable({
   form: {
-    organization: {
-      value: '',
-      errors: [],
-      validate: asReference(function (value) {
-        // Orgname has to be longer than 0
-        if (value.length === 0) return [t('errors.no-empty-strings')];
-      }),
-      update: action(function (value) {
-        var _field$errors;
-
-        var field = uiStore.form.organization;
-        var errors = field.validate(value) || [];
-        field.value = value;
-        if (errors) (_field$errors = field.errors).push.apply(_field$errors, toConsumableArray(errors));
-      })
+    isDataValid: computed(function () {
+      return uiStore.form.fields.organization.errors.length === 0;
+    }),
+    fields: {
+      organization: {
+        value: '',
+        errors: [],
+        validate: asReference(function (value) {
+          // Orgname has to be longer than 0
+          if (value.length === 0) return [t('errors.no-empty-strings')];
+        }),
+        update: action(function (value) {
+          var field = uiStore.form.fields.organization;
+          var errors = field.validate(value) || [];
+          field.value = value;
+          if (errors) field.errors = errors;
+        })
+      }
     }
   }
 });
