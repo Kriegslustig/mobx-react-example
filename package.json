@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c .rollup.js",
+    "watch:build": "rollup -c .rollup.js -m --watch",
+    "start": "node ./index.js",
     "flow-typed": "flow-typed",
     "flow": "flow"
   },
