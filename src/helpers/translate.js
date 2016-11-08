@@ -1,5 +1,3 @@
-/* @flow */
-
 const lang = 'en'
 const strings = {
   'errors.no-empty-strings': { en: 'Field may not be empty' }

@@ -1,5 +1,3 @@
-/* @flow */
-
 import reactDOM from 'react-dom'
 
 import Application from './components/pages/application'

@@ -1,5 +1,3 @@
-/* @flow */
-
 import { h, hh } from 'react-hyperscript-helpers'
 import { observer } from 'mobx-react'
 

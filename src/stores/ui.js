@@ -1,5 +1,3 @@
-/* @flow */
-
 import { observable, asReference, action } from 'mobx'
 import t from '../helpers/translate'
 
