@@ -18938,7 +18938,7 @@ exports.isArrayLike = isArrayLike;
 
 
 
-var asReference = mobx$1.asReference;
+
 
 
 
@@ -20223,7 +20223,13 @@ var Field = observer(function (_ref) {
 // Internal helpers
 
 var Form = observer(function (state) {
-  return H.form([H.h(Field, { label: 'Organization', state: state.form.fields.organization }), H.input({ type: 'submit', disabled: !state.form.isDataValid })]);
+  return H.form([H.h(Field, { label: 'Organization', state: state.form.fields.organization }), H.h(Field, { label: 'Title', state: state.form.fields.title }), H.textarea({
+    placeholder: 'body',
+    state: state.form.fields.body,
+    onChange: function onChange(e) {
+      return state.form.fields.body.update(e.target.value);
+    }
+  }), H.input({ type: 'submit', disabled: !state.form.isDataValid })]);
 });
 
 var Application = observer(function (_ref) {
@@ -20240,26 +20246,45 @@ var t = (function (key) {
   return strings[key][lang];
 });
 
+var fieldUpdater = function fieldUpdater(fieldName) {
+  return action(function (value) {
+    var field = uiStore.form.fields[fieldName];
+    var errors = field.validate(value) || [];
+    field.value = value;
+    if (errors) field.errors = errors;
+  });
+};
+
+var field = function field(_field, validator) {
+  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  return {
+    update: fieldUpdater(_field),
+    validate: validator,
+    value: initialValue,
+    errors: []
+  };
+};
+
 var uiStore = observable({
   form: {
     isDataValid: computed(function () {
-      return uiStore.form.fields.organization.errors.length === 0;
+      return Object.values(uiStore.form.fields)
+      // $FlowFixMe
+      .every(function (field) {
+        return field.errors.length === 0;
+      });
     }),
     fields: {
-      organization: {
-        value: '',
-        errors: [],
-        validate: asReference(function (value) {
-          // Orgname has to be longer than 0
-          if (value.length === 0) return [t('errors.no-empty-strings')];
-        }),
-        update: action(function (value) {
-          var field = uiStore.form.fields.organization;
-          var errors = field.validate(value) || [];
-          field.value = value;
-          if (errors) field.errors = errors;
-        })
-      }
+      organization: field('organization', function (value) {
+        // Orgname has to be longer than 0
+        if (value.length === 0) return [t('errors.no-empty-strings')];
+      }),
+      title: field('title', function (value) {
+        if (value.length === 0) return [t('errors.no-empty-strings')];
+      }),
+      body: field('body', function (value) {
+        if (value.length === 0) return [t('errors.no-empty-strings')];
+      })
     }
   }
 });
