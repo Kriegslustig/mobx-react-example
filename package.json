@@ -9,6 +9,7 @@
     "start": "node ./index.js",
     "flow-typed": "flow-typed",
     "flow": "flow",
+    "watch:flow": "watch --color npm run --silent flow -- --color=always",
     "test": "ava --require babel-register"
   },
   "repository": {
