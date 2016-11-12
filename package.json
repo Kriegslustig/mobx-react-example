@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c .rollup.js",
-    "watch:build": "rollup -c .rollup.js -m --watch",
+    "watch:build": "npm run build -- -m --watch",
     "start": "node ./index.js",
     "flow-typed": "flow-typed",
     "flow": "flow",
     "watch:flow": "watch --color npm run --silent flow -- --color=always",
-    "test": "ava --require babel-register"
+    "test": "ava --require babel-register",
+    "watch:test":  "npm run test -- --watch"
   },
   "repository": {
     "url": "https://github.com/kriegslustig/mobx-react-example.git",
