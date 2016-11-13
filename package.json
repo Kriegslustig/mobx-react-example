@@ -4,14 +4,14 @@
   "description": "Send yourself a message over Slack! (An example app using MobX and React)",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c .rollup.js",
-    "watch:build": "npm run build -- -m --watch",
+    "build": "webpack",
+    "watch:build": "npm run build -- --debug --watch",
     "start": "node ./index.js",
     "flow-typed": "flow-typed",
     "flow": "flow",
     "watch:flow": "watch --color npm run --silent flow -- --color=always",
     "test": "ava --require babel-register",
-    "watch:test":  "npm run test -- --watch"
+    "watch:test": "npm run test -- --watch"
   },
   "repository": {
     "url": "https://github.com/kriegslustig/mobx-react-example.git",
@@ -30,17 +30,13 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "babel": "^6.5.2",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2015-rollup": "^1.2.0",
     "babel-register": "^6.18.0",
     "flow-bin": "^0.34.0",
     "flow-typed": "^2.0.0",
-    "rollup": "^0.36.3",
-    "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-commonjs": "^5.0.5",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-replace": "^1.1.1",
-    "rollup-watch": "^2.5.0"
+    "webpack": "^1.13.3"
   }
 }
